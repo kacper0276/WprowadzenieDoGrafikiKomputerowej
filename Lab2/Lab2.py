@@ -53,18 +53,31 @@ def rysuj_ramki(w, h, grub):
 
     return Image.fromarray(tab)
 
+# Rysuje szachownicę gdzie kwadraty mają grubość podaną w argumencie grub
+import numpy as np
+from PIL import Image
+
+
+def rysuj_wlasne(w, h, grub):
+    t = (h, w)
+    tab = np.ones(t, dtype=np.uint8) * 255
+
+    for y in range(0, h, grub):
+        for x in range(0, w, grub):
+            if (x // grub + y // grub) % 2 == 0:
+                tab[y:y + grub, x:x + grub] = 0
+
+    return Image.fromarray(tab)
 
 # obrazek = Image.open('bs.bmp')
-#
 # zmiana = rysuj_ramke_w_obrazie(obrazek, 1)
-#
 # zmiana.show()
 
-pionowe_pasy = rysuj_pasy_pionowe(100, 50, 50)
+# pionowe_pasy = rysuj_pasy_pionowe(100, 50, 50)
+# pionowe_pasy.show()
 
-pionowe_pasy.show()
+# ramka = rysuj_ramki(100, 50, 2)
+# ramka.show()
 
-ramka = rysuj_ramki(100, 50, 2)
-
-ramka.show()
-
+szachownica = rysuj_wlasne(50, 50, 1)
+szachownica.show()
