@@ -54,10 +54,6 @@ def rysuj_ramki(w, h, grub):
     return Image.fromarray(tab)
 
 # Rysuje szachownicę gdzie kwadraty mają grubość podaną w argumencie grub
-import numpy as np
-from PIL import Image
-
-
 def rysuj_wlasne(w, h, grub):
     t = (h, w)
     tab = np.ones(t, dtype=np.uint8) * 255
