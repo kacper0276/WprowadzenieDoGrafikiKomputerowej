@@ -1,6 +1,8 @@
 from PIL import Image
 import numpy as np
 
+# Zadanie 2
+
 def rysuj_ramke_w_obrazie(obraz, grub):
     tab_obraz = np.asarray(obraz).astype(np.uint8)
     h, w = tab_obraz.shape
@@ -65,7 +67,7 @@ def rysuj_wlasne(w, h, grub):
 
     return Image.fromarray(tab)
 
-# obrazek = Image.open('bs.bmp')
+obrazek = Image.open('bs.bmp')
 # zmiana = rysuj_ramke_w_obrazie(obrazek, 1)
 # zmiana.show()
 
@@ -75,5 +77,36 @@ def rysuj_wlasne(w, h, grub):
 # ramka = rysuj_ramki(100, 50, 2)
 # ramka.show()
 
-szachownica = rysuj_wlasne(50, 50, 1)
-szachownica.show()
+# szachownica = rysuj_wlasne(50, 50, 1)
+# szachownica.show()
+
+# Zadanie 3
+
+def wstaw_obraz_w_obraz(obraz_bazowy, obraz_wstawiany, m, n):
+    tab_bazowa = np.asarray(obraz_bazowy).astype(np.uint8)
+    tab_wstawiana = np.asarray(obraz_wstawiany).astype(np.uint8)
+
+    h_bazowa, w_bazowa = tab_bazowa.shape
+    h_wstawiana, w_wstawiana = tab_wstawiana.shape
+
+    n_k = min(h_bazowa, n + h_wstawiana)
+    m_k = min(w_bazowa, m + w_wstawiana)
+    n_p = max(0, n)
+    m_p = max(0, m)
+
+    for i in range(n_p, n_k):
+        for j in range(m_p, m_k):
+            tab_bazowa[i][j] = tab_wstawiana[i - n][j - m]
+
+    # Konwersja z powrotem do obrazu
+    tab_bazowa = tab_bazowa * 255
+    nowy_obraz = Image.fromarray(tab_bazowa)
+
+    return nowy_obraz
+
+wstawiany = Image.open('../Lab1/inicjaly.bmp')
+bazowy = Image.new('L', (300, 200), 0)
+
+nowy_obraz = wstaw_obraz_w_obraz(bazowy, wstawiany, 100, 50)
+
+nowy_obraz.show()
