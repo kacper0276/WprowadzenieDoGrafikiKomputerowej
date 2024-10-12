@@ -113,7 +113,6 @@ def wstaw_obraz_w_obraz(obraz_bazowy, obraz_wstawiany, m, n):
 #
 # nowy_obraz_1.show()
 #
-# # Step 4: Apply the second placement of initials (m = 0, n = 50)
 # nowy_obraz_2 = wstaw_obraz_w_obraz(bazowy, wstawiony, 0, 50)
 # nowy_obraz_2.show()
 
