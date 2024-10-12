@@ -25,11 +25,6 @@ def rysuj_ramke_w_obrazie(obraz, grub):
     return Image.fromarray(tab)
 
 
-def rysuj_ramki(w,h,grub):
-    t = (h, w)
-    tab = np.ones(t, dtype=np.uint8)
-
-
 def rysuj_pasy_pionowe(w, h, grub):
     t = (h, w)
     tab = np.ones(t, np.uint8) * 255
@@ -67,7 +62,7 @@ def rysuj_wlasne(w, h, grub):
 
     return Image.fromarray(tab)
 
-obrazek = Image.open('bs.bmp')
+obrazek = Image.open('inicjaly.bmp')
 # zmiana = rysuj_ramke_w_obrazie(obrazek, 1)
 # zmiana.show()
 
