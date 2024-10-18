@@ -116,5 +116,28 @@ po_skosie_negatyw = negatyw(po_skosie)
 
 # Zad 3
 
-def koloruj_w_paski(obraz, grub):
-    print(obraz.size)
+def koloruj_w_paski(obraz: img, grub, kolor, zmiana_koloru_r, zmiana_koloru_g, zmiana_koloru_b):
+    w, h = obraz.size
+
+    tab = np.ones((h, w, 3), dtype=np.uint8) * 255
+
+    r, g, b = kolor
+
+    for y in range(h):
+        if y % grub == 0:
+            r = max(0, min(255, r + zmiana_koloru_r))
+            g = max(0, min(255, g + zmiana_koloru_g))
+            b = max(0, min(255, b + zmiana_koloru_b))
+
+        for x in range(w):
+            if obraz.getpixel((x, y)) == 0:
+                tab[y, x] = [r, g, b]
+
+    nowy_obraz = Image.fromarray(tab)
+    return nowy_obraz
+
+
+obraz = Image.open('gwiazdka.bmp')
+koloruj = koloruj_w_paski(obraz, 5, [20, 120,220], 6, 6, -6)
+
+# koloruj.show()
