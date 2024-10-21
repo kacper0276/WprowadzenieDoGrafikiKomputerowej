@@ -160,3 +160,12 @@ pixel_data = np.array(ex4)
 
 # pixel_data[0,0] = 328
 # pixel_data[0,0] = -28
+
+def uint8_wrap(value):
+    if value < 0:
+        return value + 256
+    return value % 256
+
+print(uint8_wrap(-24))
+
+print(uint8_wrap(328))
