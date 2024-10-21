@@ -32,9 +32,11 @@ def rysuj_pasy_pionowe_szare(w, h, grub):
 
 
 ramka = rysuj_ramki_szare(300, 200, 5)
+# ramka.save('ramki_szare.png')
 # ramka.show()
 
 pasy = rysuj_pasy_pionowe_szare(300, 200, 5)
+# pasy.save('pasy_pionowe_szare.png')
 # pasy.show()
 
 # Zad 2
@@ -103,16 +105,21 @@ negatyw_gwiazdka = negatyw(gwizadka)
 
 # gwizadka.show()
 # negatyw_gwiazdka.show()
+# negatyw_gwiazdka.save('negatyw_gwiazdka.png')
 
 ramki_kolorowe = rysuj_ramki_kolorowe(200, [20, 120,220], 6, 6, -6)
 # ramki_kolorowe.show()
+# ramki_kolorowe.save('ramki_kolorowe.png')
 negatyw_ramki_kolorowe = negatyw(ramki_kolorowe)
 # negatyw_ramki_kolorowe.show()
+# negatyw_ramki_kolorowe.save('negatyw_ramki_kolorowe.png')
 
 po_skosie = rysuj_po_skosie_szare(100, 300, 6, 6)
 # po_skosie.show()
+# po_skosie.save('po_skosie.png')
 po_skosie_negatyw = negatyw(po_skosie)
 # po_skosie_negatyw.show()
+# po_skosie_negatyw.save('negatyw_po_skosie.png')
 
 # Zad 3
 
@@ -137,7 +144,19 @@ def koloruj_w_paski(obraz: img, grub, kolor, zmiana_koloru_r, zmiana_koloru_g, z
     return nowy_obraz
 
 
-obraz = Image.open('gwiazdka.bmp')
+obraz = Image.open('../Lab1/inicjaly.bmp')
+# print(obraz.mode)
 koloruj = koloruj_w_paski(obraz, 5, [20, 120,220], 6, 6, -6)
 
+# koloruj.save('zad_3.png')
+# koloruj.save('zad_3.jpg')
+
 # koloruj.show()
+
+# Zadanie 4
+ex4 = Image.new("RGB", (100, 100))
+
+pixel_data = np.array(ex4)
+
+# pixel_data[0,0] = 328
+# pixel_data[0,0] = -28
