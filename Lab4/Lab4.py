@@ -73,3 +73,124 @@ plt.imshow(diff2)
 plt.axis('off')
 plt.subplots_adjust(wspace=0.05, hspace=0.05)
 # plt.savefig('fig2.png')
+
+# Zadanie 4
+
+obraz = Image.open('beksinski.png')
+mix = Image.open('beksinski1.png')
+
+def check_channel_permutation(image1, image2):
+    r1, g1, b1 = image1.split()
+    r2, g2, b2 = image2.split()
+
+    if Image.merge('RGB', (r1, g1, b1)) == image2:
+        return "No channel change."
+    elif Image.merge('RGB', (r1, b1, g1)) == image2:
+        return "Channels swapped: G and B."
+    elif Image.merge('RGB', (g1, r1, b1)) == image2:
+        return "Channels swapped: R and G."
+    elif Image.merge('RGB', (g1, b1, r1)) == image2:
+        return "Channels swapped: R and B."
+    elif Image.merge('RGB', (b1, r1, g1)) == image2:
+        return "Channels swapped: R and B, G and R."
+    elif Image.merge('RGB', (b1, g1, r1)) == image2:
+        return "Channels swapped: R and B, G and B."
+    else:
+        return "No matching channel permutation found."
+
+def check_negative(image1, image2):
+    inverted_image1 = ImageChops.invert(image1)
+    return inverted_image1 == image2
+
+channel_permutation_result = check_channel_permutation(obraz, mix)
+print(channel_permutation_result)
+
+if check_negative(obraz, mix):
+    print("The mix image is a negative of the original image.")
+else:
+    print("The mix image is not a negative of the original image.")
+
+# Zadanie 5
+
+def generate_gray_image(width, height):
+    gray_array = np.random.randint(0, 256, (height, width), dtype=np.uint8)
+    return Image.fromarray(gray_array, 'L')
+
+im = Image.open('obrazek.png')
+
+im3 = generate_gray_image(im.width, im.height)
+
+def replace_channel(image, gray_image, channel):
+    r, g, b = image.split()
+    if channel == 'r':
+        return Image.merge('RGB', (gray_image, g, b))
+    elif channel == 'g':
+        return Image.merge('RGB', (r, gray_image, b))
+    elif channel == 'b':
+        return Image.merge('RGB', (r, g, gray_image))
+
+im_r = replace_channel(im, im3, 'r')
+im_g = replace_channel(im, im3, 'g')
+im_b = replace_channel(im, im3, 'b')
+
+fig, axs = plt.subplots(1, 3, figsize=(15, 5))
+axs[0].imshow(im_r)
+axs[0].set_title('Gray in R channel')
+axs[1].imshow(im_g)
+axs[1].set_title('Gray in G channel')
+axs[2].imshow(im_b)
+axs[2].set_title('Gray in B channel')
+
+for ax in axs:
+    ax.axis('off')
+
+plt.savefig('fig4.png')
+plt.show()
+
+# Zadanie 6
+
+im = Image.open('beksinski.png')
+
+plt.hist(np.array(im).ravel(), bins=256, color='gray')
+plt.show()
+
+r, g, b = im.split()
+
+fig, axs = plt.subplots(3, 1, figsize=(10, 8))
+
+axs[0].hist(np.array(r).ravel(), bins=256, color='red')
+axs[0].set_title('Red channel')
+
+axs[1].hist(np.array(g).ravel(), bins=256, color='green')
+axs[1].set_title('Green channel')
+
+axs[2].hist(np.array(b).ravel(), bins=256, color='blue')
+axs[2].set_title('Blue channel')
+
+plt.tight_layout()
+plt.show()
+
+pixels_with_value_1 = np.sum(np.array(g) == 1)
+print(f"Liczba pikseli o wartości 1 w kanale zielonym: {pixels_with_value_1}")
+
+# Zadanie 7
+
+def are_images_identical(im1, im2):
+    if im1.mode != im2.mode or im1.size != im2.size:
+        return False
+    diff = ImageChops.difference(im1, im2)
+    return not diff.getbbox()
+
+im1 = Image.open('image1.png')
+im2 = Image.open('image2.png')
+
+if are_images_identical(im1, im2):
+    print("Obrazy są identyczne")
+else:
+    print("Obrazy są różne")
+
+diff = ImageChops.difference(im1, im2)
+
+amplified_diff = diff.point(lambda x: x * 10)
+
+amplified_diff.show()
