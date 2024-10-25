@@ -148,29 +148,59 @@ for ax in axs:
 
 # Zadanie 6
 
+# im = Image.open('beksinski.png')
+#
+# plt.hist(np.array(im).ravel(), bins=256, color='gray')
+# plt.show()
+#
+# r, g, b = im.split()
+#
+# fig, axs = plt.subplots(3, 1, figsize=(10, 8))
+#
+# axs[0].hist(np.array(r).ravel(), bins=256, color='red')
+# axs[0].set_title('Red channel')
+#
+# axs[1].hist(np.array(g).ravel(), bins=256, color='green')
+# axs[1].set_title('Green channel')
+#
+# axs[2].hist(np.array(b).ravel(), bins=256, color='blue')
+# axs[2].set_title('Blue channel')
+#
+# plt.tight_layout()
+# plt.show()
+#
+# pixels_with_value_1 = np.sum(np.array(g) == 1)
+# print(f"Liczba pikseli o wartości 1 w kanale zielonym: {pixels_with_value_1}")
+
 im = Image.open('beksinski.png')
 
-plt.hist(np.array(im).ravel(), bins=256, color='gray')
-plt.show()
-
-r, g, b = im.split()
+hist = im.histogram()
 
 fig, axs = plt.subplots(3, 1, figsize=(10, 8))
 
-axs[0].hist(np.array(r).ravel(), bins=256, color='red')
-axs[0].set_title('Red channel')
+axs[0].hist(hist[:256], bins=256, color='red')
+axs[0].set_title('Kanał czerwony')
 
-axs[1].hist(np.array(g).ravel(), bins=256, color='green')
-axs[1].set_title('Green channel')
+axs[1].hist(hist[256:2 * 256], bins=256, color='green')
+axs[1].set_title('Kanał zielony')
 
-axs[2].hist(np.array(b).ravel(), bins=256, color='blue')
-axs[2].set_title('Blue channel')
+axs[2].hist(hist[2 * 256:], bins=256, color='blue')
+axs[2].set_title('Kanał niebieski')
 
 plt.tight_layout()
-# plt.show()
+plt.show()
 
-pixels_with_value_1 = np.sum(np.array(g) == 1)
-print(f"Liczba pikseli o wartości 1 w kanale zielonym: {pixels_with_value_1}")
+r_hist = r.histogram()
+g_hist = g.histogram()
+b_hist = b.histogram()
+
+pixels_value_1_red = r_hist[1]
+pixels_value_1_green = g_hist[1]
+pixels_value_1_blue = b_hist[1]
+
+print("Liczba pikseli o intensywności 1 w kanale czerwonym:", pixels_value_1_red)
+print("Liczba pikseli o intensywności 1 w kanale zielonym:", pixels_value_1_green)
+print("Liczba pikseli o intensywności 1 w kanale niebieskim:", pixels_value_1_blue)
 
 # Zadanie 7
 
