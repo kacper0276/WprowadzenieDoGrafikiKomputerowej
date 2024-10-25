@@ -81,7 +81,6 @@ mix = Image.open('beksinski1.png')
 
 def check_channel_permutation(image1, image2):
     r1, g1, b1 = image1.split()
-    r2, g2, b2 = image2.split()
 
     if Image.merge('RGB', (r1, g1, b1)) == image2:
         return "No channel change."
@@ -144,8 +143,8 @@ axs[2].set_title('Gray in B channel')
 for ax in axs:
     ax.axis('off')
 
-plt.savefig('fig4.png')
-plt.show()
+# plt.savefig('fig4.png')
+# plt.show()
 
 # Zadanie 6
 
@@ -168,7 +167,7 @@ axs[2].hist(np.array(b).ravel(), bins=256, color='blue')
 axs[2].set_title('Blue channel')
 
 plt.tight_layout()
-plt.show()
+# plt.show()
 
 pixels_with_value_1 = np.sum(np.array(g) == 1)
 print(f"Liczba pikseli o wartości 1 w kanale zielonym: {pixels_with_value_1}")
@@ -181,8 +180,8 @@ def are_images_identical(im1, im2):
     diff = ImageChops.difference(im1, im2)
     return not diff.getbbox()
 
-im1 = Image.open('image1.png')
-im2 = Image.open('image2.png')
+im1 = Image.open('obrazek.png')
+im2 = Image.open('beksinski.png')
 
 if are_images_identical(im1, im2):
     print("Obrazy są identyczne")
