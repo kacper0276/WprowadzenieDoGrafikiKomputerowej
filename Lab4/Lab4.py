@@ -177,33 +177,43 @@ for ax in axs:
 
 im = Image.open('beksinski.png')
 
-hist = im.histogram()
+hist = obraz.histogram()
 
-fig, axs = plt.subplots(3, 1, figsize=(10, 8))
+# Kanał czerwony
+plt.figure()
+plt.title("Histogram - Kanał Czerwony")
+plt.bar(range(256), hist[:256], color='r', alpha=0.7)
+plt.xlabel("Wartość piksela")
+plt.ylabel("Liczba pikseli")
+# plt.show()
 
-axs[0].hist(hist[:256], bins=256, color='red')
-axs[0].set_title('Kanał czerwony')
+# Kanał zielony
+plt.figure()
+plt.title("Histogram - Kanał Zielony")
+plt.bar(range(256), hist[256:2 * 256], color='g', alpha=0.7)
+plt.xlabel("Wartość piksela")
+plt.ylabel("Liczba pikseli")
+# plt.show()
 
-axs[1].hist(hist[256:2 * 256], bins=256, color='green')
-axs[1].set_title('Kanał zielony')
+# Kanał niebieski
+plt.figure()
+plt.title("Histogram - Kanał Niebieski")
+plt.bar(range(256), hist[2 * 256:], color='b', alpha=0.7)
+plt.xlabel("Wartość piksela")
+plt.ylabel("Liczba pikseli")
+# plt.show()
 
-axs[2].hist(hist[2 * 256:], bins=256, color='blue')
-axs[2].set_title('Kanał niebieski')
+wartosc = 1
+kanal = 'g'
 
-plt.tight_layout()
-plt.show()
+obraz_array = np.array(obraz)
+kanal_map = {'r': 0, 'g': 1, 'b': 2}
+indeks_kanalu = kanal_map[kanal]
 
-r_hist = r.histogram()
-g_hist = g.histogram()
-b_hist = b.histogram()
+wybrany_kanal = obraz_array[:, :, indeks_kanalu]
+liczba_pikseli = np.sum(wybrany_kanal == wartosc)
 
-pixels_value_1_red = r_hist[1]
-pixels_value_1_green = g_hist[1]
-pixels_value_1_blue = b_hist[1]
-
-print("Liczba pikseli o intensywności 1 w kanale czerwonym:", pixels_value_1_red)
-print("Liczba pikseli o intensywności 1 w kanale zielonym:", pixels_value_1_green)
-print("Liczba pikseli o intensywności 1 w kanale niebieskim:", pixels_value_1_blue)
+print(f"Liczba pikseli o wartości {wartosc} na kanale {kanal.upper()}: {liczba_pikseli}")
 
 # Zadanie 7
 
@@ -225,4 +235,4 @@ diff = ImageChops.difference(im1, im2)
 
 amplified_diff = diff.point(lambda x: x * 10)
 
-amplified_diff.show()
+# amplified_diff.show()
