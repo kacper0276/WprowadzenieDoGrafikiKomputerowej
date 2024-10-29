@@ -101,6 +101,9 @@ def check_negative(image1, image2):
     inverted_image1 = ImageChops.invert(image1)
     return inverted_image1 == image2
 
+def is_negative(original, mix):
+    return np.all(mix == 255 - original)
+
 channel_permutation_result = check_channel_permutation(obraz, mix)
 print(channel_permutation_result)
 
