@@ -4,6 +4,7 @@ from PIL import ImageChops
 from PIL import ImageStat as stat
 import matplotlib.pyplot as plt
 
+# Zad 1
 im = Image.open('obrazek.png')
 
 r, g, b = im.split()
@@ -34,6 +35,7 @@ plt.savefig("test/fig2.png")
 
 plt.show()
 
+#  Zad 2
 def statystyki(im):
     s = stat.Stat(im)
     print("extrema ", s.extrema)
@@ -58,6 +60,7 @@ std_b = round(std_b, 1)
 
 print(f"{std_r} {std_g} {std_b}")
 
+# Zad 3
 def sprawdz_typ_mix(obraz_org_path, obraz_mix_path):
     obraz_org = Image.open(obraz_org_path)
     obraz_mix = Image.open(obraz_mix_path)
@@ -85,6 +88,7 @@ def sprawdz_typ_mix(obraz_org_path, obraz_mix_path):
 wynik = sprawdz_typ_mix('./test/obraz9.jpg', './test/mix29.png')
 print(wynik)
 
+# Zad 4
 im = Image.open('./test/obraz11.jpg')
 
 zielony_kanal = im.split()[1]
@@ -106,6 +110,7 @@ plt.savefig('kolos/hist.png')
 
 print(liczba_pikseli_50)
 
+# Zad 5
 def are_images_identical(img1, img2):
     if img1.size != img2.size or img1.mode != img2.mode:
         return False
@@ -124,7 +129,7 @@ if are_images_identical(im1, im2):
 else:
     print("Obrazy są różne")
 
-
+# Zad 6
 def highlight_differences(img1, img2):
     if img1.size != img2.size or img1.mode != img2.mode:
         return None
@@ -183,6 +188,7 @@ plt.axis("off")
 plt.savefig("kolos/fig1.png")
 plt.show()
 
+# Zad 7
 def szary(w, h):
     gray_image = np.zeros((h, w), dtype=np.uint8)
     for j in range(h):
