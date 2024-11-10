@@ -40,4 +40,76 @@ wynikowy_obraz = wstaw_inicjaly(wynikowy_obraz, obraz_wstawiany, 0, obraz_bazowy
 # W połowie wysokości tak, żeby było widać tylko pierwszą literę inicjałów
 wynikowy_obraz = wstaw_inicjaly(wynikowy_obraz, obraz_wstawiany, obraz_bazowy.width - obraz_wstawiany.width // 2, (obraz_bazowy.height // 2) - (obraz_wstawiany.height // 2), [0, 255, 126])
 
-wynikowy_obraz.save('obraz_inicjaly.png')
+# wynikowy_obraz.save('obraz_inicjaly.png')
+
+# Zadanie 2
+
+obrazek_zad2 = Image.open('obraz.png')
+obrazek_zad2.save("zad2/obraz1.jpg")
+
+for i in range(1, 5):
+    obraz = Image.open(f"zad2/obraz{i}.jpg")
+    obraz.save(f"zad2/obraz{i+1}.jpg")
+
+obraz = Image.open("obraz.png")
+obraz5 = Image.open("zad2/obraz5.jpg")
+
+histogram_oryginal = obraz.histogram()
+histogram_obraz5 = obraz5.histogram()
+roznica_obraz = ImageChops.difference(obraz, obraz5)
+
+histogram_roznica = roznica_obraz.histogram()
+
+plt.figure(figsize=(16, 16))
+
+plt.subplot(2, 2, 1)
+plt.imshow(obraz)
+plt.title("Oryginalny obraz")
+plt.axis('off')
+
+plt.subplot(2, 2, 2)
+plt.imshow(obraz5)
+plt.title("Obraz5")
+plt.axis('off')
+
+plt.subplot(2, 2, 3)
+plt.imshow(roznica_obraz)
+plt.title("Obraz różnicy")
+plt.axis('off')
+
+plt.subplot(2, 2, 4)
+plt.plot(histogram_oryginal, label="Oryginalny obraz", color='blue', alpha=0.7)
+plt.plot(histogram_obraz5, label="Obraz5", color='green', alpha=0.7)
+plt.title("Histogramy")
+plt.legend()
+
+plt.savefig('zad2/porownanie_org_obr5')
+
+obraz4 = Image.open("zad2/obraz4.jpg")
+obraz4_histogram = obraz4.histogram()
+roznica_obraz4_obraz5 = ImageChops.difference(obraz4, obraz5)
+
+plt.figure(figsize=(16, 16))
+
+plt.subplot(2, 2, 1)
+plt.imshow(obraz4)
+plt.title("Obraz 4")
+plt.axis('off')
+
+plt.subplot(2, 2, 2)
+plt.imshow(obraz5)
+plt.title("Obraz 5")
+plt.axis('off')
+
+plt.subplot(2, 2, 3)
+plt.imshow(roznica_obraz4_obraz5)
+plt.title("Różnica obrazów 4 i 5")
+plt.axis('off')
+
+plt.subplot(2, 2, 4)
+plt.hist(obraz4_histogram, bins=256, color='blue', alpha=0.7, label="Obraz 4")
+plt.hist(histogram_obraz5, bins=256, color='green', alpha=0.7, label="Obraz 5")
+plt.title("Histogramy obrazów")
+plt.legend()
+
+# plt.savefig('zad2/porownanie_obr4_obr5_hist')
