@@ -83,7 +83,7 @@ plt.plot(histogram_obraz5, label="Obraz5", color='green', alpha=0.7)
 plt.title("Histogramy")
 plt.legend()
 
-plt.savefig('zad2/porownanie_org_obr5')
+# plt.savefig('zad2/porownanie_org_obr5')
 
 obraz4 = Image.open("zad2/obraz4.jpg")
 obraz4_histogram = obraz4.histogram()
@@ -113,3 +113,40 @@ plt.title("Histogramy obrazów")
 plt.legend()
 
 # plt.savefig('zad2/porownanie_obr4_obr5_hist')
+
+# Zadanie 3
+
+def odkoduj(obraz1, obraz2):
+    szerokosc, wysokosc = obraz1.size
+
+    tablica1 = np.array(obraz1)
+    tablica2 = np.array(obraz2)
+
+    roznice = np.zeros((wysokosc, szerokosc), dtype=np.uint8)
+
+    for y in range(wysokosc):
+        for x in range(szerokosc):
+            if (tablica1[y, x, 0] != tablica2[y, x, 0] or
+                    tablica1[y, x, 1] != tablica2[y, x, 1] or
+                    tablica1[y, x, 2] != tablica2[y, x, 2]):
+                roznice[y, x] = 255
+
+    wynikowy_obraz = Image.fromarray(roznice)
+
+    return wynikowy_obraz
+
+
+test = Image.open('pliki/jesien.jpg')
+test_zakodowany = Image.open('pliki/zakodowany1.bmp')
+
+testowy = odkoduj(test, test_zakodowany)
+
+# testowy.show()
+
+obraz_jesien = Image.open('pliki/jesien.jpg')
+obraz_zakodowany2 = Image.open('pliki/zakodowany2.bmp')
+
+odkodowany = odkoduj(obraz_jesien, obraz_zakodowany2)
+
+# odkodowany.show()
+odkodowany.save('pliki/kod2.bmp')
