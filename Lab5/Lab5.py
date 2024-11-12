@@ -28,7 +28,7 @@ def wstaw_inicjaly(obraz_bazowy, obraz_wstawiany, m, n,kolor):
     return obraz_bazowy_wynik
 
 
-obraz_wstawiany = Image.open('inicjaly.bmp') # Obraz w trybie 1
+obraz_wstawiany = Image.open('obraz_wstawiany.bmp') # Obraz w trybie 1
 obraz_bazowy = Image.open('obraz.png')
 
 # Prawy górny
@@ -149,4 +149,4 @@ obraz_zakodowany2 = Image.open('pliki/zakodowany2.bmp')
 odkodowany = odkoduj(obraz_jesien, obraz_zakodowany2)
 
 # odkodowany.show()
-odkodowany.save('pliki/kod2.bmp')
+# odkodowany.save('pliki/kod2.bmp')
