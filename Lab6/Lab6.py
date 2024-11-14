@@ -78,3 +78,94 @@ plt.title('Zadanie 3')
 # plt.show()
 # plt.savefig('fig1.png')
 
+# Zad 4
+def kontrast(obraz, wsp_kontrastu):
+    mn = ((255 + wsp_kontrastu) / 255) ** 2
+    return obraz.point(lambda i: 128 + (i - 128) * mn)
+
+obrazk1 = kontrast(obraz, 15)
+obrazk2 = kontrast(obraz, 60)
+obrazk3 = kontrast(obraz, 100)
+
+plt.figure(figsize=(16, 16))
+plt.subplot(2, 2, 1)
+plt.imshow(obraz)
+plt.title("Obraz")
+plt.axis('off')
+
+plt.subplot(2, 2, 2)
+plt.imshow(obrazk1)
+plt.title("Kontrast 1")
+plt.axis('off')
+
+plt.subplot(2, 2, 3)
+plt.imshow(obrazk2)
+plt.title("Kontrast 2")
+plt.axis('off')
+
+plt.subplot(2, 2, 4)
+plt.imshow(obrazk3)
+plt.title("Kontrast 3")
+plt.axis('off')
+
+# plt.show()
+# plt.savefig('fig2.png')
+
+def transformacja_logarytmiczna(obraz):
+    return obraz.point(lambda i: 255 * np.log(1 + i / 255))
+
+logImg = transformacja_logarytmiczna(obraz)
+
+a, b = 2, 100
+obraz4a = obraz.copy().point(lambda i: a * i + b)
+
+plt.figure(figsize=(16, 16))
+plt.subplot(2, 2, 1)
+plt.imshow(obraz)
+plt.title("Obraz")
+plt.axis('off')
+
+plt.subplot(2, 2, 2)
+plt.imshow(logImg)
+plt.title('LogImg')
+plt.axis('off')
+
+plt.subplot(2, 2, 3)
+plt.imshow(obraz4a)
+plt.title('Obraz 4AB')
+plt.axis('off')
+
+# plt.show()
+# plt.savefig('fig3.png')
+
+def transformacja_gamma (obraz, gamma):
+    return obraz.point(lambda i: (i / 255) ** (1 / gamma) * 255)
+
+obraz4c1 = transformacja_gamma(obraz, .5)
+obraz4c2 = transformacja_gamma(obraz, 1)
+obraz4c3 = transformacja_gamma(obraz, 5)
+
+plt.figure(figsize=(16, 16))
+plt.subplot(2, 2, 1)
+plt.imshow(obraz)
+plt.title("Obraz")
+plt.axis('off')
+
+plt.subplot(2, 2, 2)
+plt.imshow(obraz4c1)
+plt.title("Kontrast 1")
+plt.axis('off')
+
+plt.subplot(2, 2, 3)
+plt.imshow(obraz4c2)
+plt.title("Kontrast 2")
+plt.axis('off')
+
+plt.subplot(2, 2, 4)
+plt.imshow(obraz4c3)
+plt.title("Kontrast 3")
+plt.axis('off')
+
+# plt.show()
+# plt.savefig('fig4.png')
+
