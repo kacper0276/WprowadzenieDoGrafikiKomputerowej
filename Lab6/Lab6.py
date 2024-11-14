@@ -169,3 +169,11 @@ plt.axis('off')
 # plt.show()
 # plt.savefig('fig4.png')
 
+# Zad 5
+def add_constant_to_array(obraz, value):
+    array = np.array(obraz, dtype=np.uint8)
+    width, height = obraz.size
+    for x in range(width):
+        for y in range(height):
+            array[y, x] = min(array[y, x] + value, 255)
+    return Image.fromarray(array)
