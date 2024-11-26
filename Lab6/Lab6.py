@@ -172,10 +172,29 @@ plt.axis('off')
 plt.savefig('fig4.png')
 
 # Zad 5
-def add_constant_to_array(obraz, value):
-    array = np.array(obraz, dtype=np.uint8)
-    width, height = obraz.size
-    for x in range(width):
-        for y in range(height):
-            array[y, x] = min(array[y, x] + value, 255)
-    return Image.fromarray(array)
+def adjust_brightness(image_array, value):
+    result = image_array.copy()
+
+    height, width, channels = result.shape
+
+    for y in range(height):
+        for x in range(width):
+            for c in range(channels):
+                new_value = int(result[y, x, c]) + value
+                if new_value > 255:
+                    new_value = 255
+                elif new_value < 0:
+                    new_value = 0
+                result[y, x, c] = new_value
+
+    return result
+
+T = np.array(obraz, dtype='uint8')
+obraz_wynik = Image.fromarray(adjust_brightness(T, 100), 'RGB')
+# T += 100
+# obraz_wynik = Image.fromarray(T, "RGB")
+obraz_wynik.show()
+
+obraz = obraz.point(lambda i: i + 100)
+
+obraz.show()
