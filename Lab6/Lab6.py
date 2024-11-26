@@ -20,6 +20,7 @@ ma = obraz.width - inicjaly.width
 na = obraz.height - inicjaly.height
 obraz1 = wstaw_inicjaly(obraz, inicjaly, ma, na, (255, 0, 0))
 # obraz1.show()
+obraz1.save('obraz1.png')
 
 def wstaw_inicjaly_maska(obraz, inicjaly, m, n):
     obraz_copy = obraz.copy()
@@ -35,6 +36,7 @@ mb = (obraz.width - inicjaly.width) // 2
 nb = (obraz.height - inicjaly.height) // 2
 obraz2 = wstaw_inicjaly_maska(obraz, inicjaly, mb, nb)
 # obraz2.show()
+obraz2.save('obraz2.png')
 
 # Zad 3
 def wstaw_inicjaly_load(obraz, inicjaly, m, n, kolor):
@@ -76,7 +78,7 @@ plt.axis('off')
 
 plt.title('Zadanie 3')
 # plt.show()
-# plt.savefig('fig1.png')
+plt.savefig('fig1.png')
 
 # Zad 4
 def kontrast(obraz, wsp_kontrastu):
@@ -109,7 +111,7 @@ plt.title("Kontrast 3")
 plt.axis('off')
 
 # plt.show()
-# plt.savefig('fig2.png')
+plt.savefig('fig2.png')
 
 def transformacja_logarytmiczna(obraz):
     return obraz.point(lambda i: 255 * np.log(1 + i / 255))
@@ -136,7 +138,7 @@ plt.title('Obraz 4AB')
 plt.axis('off')
 
 # plt.show()
-# plt.savefig('fig3.png')
+plt.savefig('fig3.png')
 
 def transformacja_gamma (obraz, gamma):
     return obraz.point(lambda i: (i / 255) ** (1 / gamma) * 255)
@@ -167,7 +169,7 @@ plt.title("Kontrast 3")
 plt.axis('off')
 
 # plt.show()
-# plt.savefig('fig4.png')
+plt.savefig('fig4.png')
 
 # Zad 5
 def add_constant_to_array(obraz, value):
