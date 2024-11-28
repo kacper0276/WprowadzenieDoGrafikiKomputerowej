@@ -49,3 +49,20 @@ def rysuj_kwadrat_min(obraz, m, n, k):
             pix1[x, y] = (min_vals[0], min_vals[1], min_vals[2])
 
     return obraz1
+
+# Zadanie 2
+def rysuj_kolo_z_pikseli(obraz, m_s, n_s, r, x, y, szerokosc, wysokosc):
+    obraz1 = obraz.copy()
+    w, h = obraz.size
+
+    fragment = obraz.crop((x, y, x + szerokosc, y + wysokosc))
+
+    for i in range(w):
+        for j in range(h):
+            if (i - m_s) ** 2 + (j - n_s) ** 2 < r ** 2:
+                fi = (i - m_s) % szerokosc
+                fj = (j - n_s) % wysokosc
+                kolor_fragmentu = fragment.getpixel((fi, fj))
+                obraz1.putpixel((i, j), kolor_fragmentu)
+
+    return obraz1
