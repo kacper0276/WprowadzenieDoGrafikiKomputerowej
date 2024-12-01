@@ -66,3 +66,13 @@ def rysuj_kolo_z_pikseli(obraz, m_s, n_s, r, x, y, szerokosc, wysokosc):
                 obraz1.putpixel((i, j), kolor_fragmentu)
 
     return obraz1
+
+# Zadanie 3
+def odbij_w_pionie(im):
+    img = im.copy()
+    w, h = im.size
+    px = im.load()
+    for i in range(w):
+        for j in range(h):
+            px[i, j] = px[w - 1 - i, j]
+    return img
