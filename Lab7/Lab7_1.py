@@ -2,6 +2,8 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 
+obraz = Image.open('baby_yoda.jpg')
+
 def rysuj_kwadrat_max(obraz, m, n, k):
     obraz1 = obraz.copy()
     pix = obraz.load()
@@ -49,6 +51,38 @@ def rysuj_kwadrat_min(obraz, m, n, k):
             pix1[x, y] = (min_vals[0], min_vals[1], min_vals[2])
 
     return obraz1
+
+miejsca = [(100, 150), (250, 300), (50, 100)]
+dlugosci = [15, 25, 35]
+
+obraz1 = obraz.copy()
+for m, n in miejsca:
+    for k in dlugosci:
+        obraz1 = rysuj_kwadrat_max(obraz1, m, n, k)
+
+obraz1.save('obraz1.png')
+
+obraz2 = obraz.copy()
+for m, n in miejsca:
+    for k in dlugosci:
+        obraz2 = rysuj_kwadrat_min(obraz2, m, n, k)
+
+obraz2.save('obraz2.png')
+
+plt.figure(figsize=(10, 5))
+
+obraz1 = Image.open('obraz1.png')
+obraz2 = Image.open('obraz2.png')
+
+plt.subplot(1, 2, 1)
+plt.imshow(obraz1)
+plt.title('Obraz z kwadratami (max)')
+
+plt.subplot(1, 2, 2)
+plt.imshow(obraz2)
+plt.title('Obraz z kwadratami (min)')
+
+plt.show()
 
 # Zadanie 2
 def rysuj_kolo_z_pikseli(obraz, m_s, n_s, r, x, y, szerokosc, wysokosc):
