@@ -75,24 +75,52 @@ plt.subplot(1, 2, 2)
 plt.imshow(obraz2)
 plt.title('Obraz z kwadratami (min)')
 
-plt.show()
+# plt.show()
 
 # Zadanie 2
 def rysuj_kolo_z_pikseli(obraz, m_s, n_s, r, x, y, szerokosc, wysokosc):
     obraz1 = obraz.copy()
     w, h = obraz.size
 
-    fragment = obraz.crop((x, y, x + szerokosc, y + wysokosc))
-
     for i in range(w):
         for j in range(h):
             if (i - m_s) ** 2 + (j - n_s) ** 2 < r ** 2:
-                fi = (i - m_s) % szerokosc
-                fj = (j - n_s) % wysokosc
-                kolor_fragmentu = fragment.getpixel((fi, fj))
-                obraz1.putpixel((i, j), kolor_fragmentu)
+                fi = (i - m_s + x) % szerokosc + x
+                fj = (j - n_s + y) % wysokosc + y
+                if 0 <= fi < w and 0 <= fj < h:
+                    kolor_fragmentu = obraz.getpixel((fi, fj))
+                    obraz1.putpixel((i, j), kolor_fragmentu)
 
     return obraz1
+
+output_image_path_3 = "obraz3.png"
+output_image_path_4 = "obraz4.png"
+
+modified_image_3 = rysuj_kolo_z_pikseli(
+    obraz=obraz,
+    m_s=300,
+    n_s=200,
+    r=50,
+    x=200,
+    y=200,
+    szerokosc=100,
+    wysokosc=100
+)
+
+modified_image_3.save(output_image_path_3)
+
+modified_image_4 = rysuj_kolo_z_pikseli(
+    obraz=modified_image_3,
+    m_s=100,
+    n_s=150,
+    r=50,
+    x=200,
+    y=200,
+    szerokosc=100,
+    wysokosc=100
+)
+
+modified_image_4.save(output_image_path_4)
 
 # Zadanie 3
 def odbij_w_pionie(im):
