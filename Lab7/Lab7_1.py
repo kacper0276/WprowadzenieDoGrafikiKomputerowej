@@ -52,22 +52,15 @@ def rysuj_kwadrat_min(obraz, m, n, k):
 
     return obraz1
 
-miejsca = [(100, 150), (250, 300), (50, 100)]
-dlugosci = [15, 25, 35]
+result_max = rysuj_kwadrat_max(obraz, 50, 50, 21)
+result_max = rysuj_kwadrat_max(result_max, 150, 150, 31)
+result_max = rysuj_kwadrat_max(result_max, 250, 250, 41)
+result_max.save("obraz1.png")
 
-obraz1 = obraz.copy()
-for m, n in miejsca:
-    for k in dlugosci:
-        obraz1 = rysuj_kwadrat_max(obraz1, m, n, k)
-
-obraz1.save('obraz1.png')
-
-obraz2 = obraz.copy()
-for m, n in miejsca:
-    for k in dlugosci:
-        obraz2 = rysuj_kwadrat_min(obraz2, m, n, k)
-
-obraz2.save('obraz2.png')
+result_min = rysuj_kwadrat_min(obraz, 50, 50, 21)
+result_min = rysuj_kwadrat_min(result_min, 150, 150, 31)
+result_min = rysuj_kwadrat_min(result_min, 250, 250, 41)
+result_min.save("obraz2.png")
 
 plt.figure(figsize=(10, 5))
 
