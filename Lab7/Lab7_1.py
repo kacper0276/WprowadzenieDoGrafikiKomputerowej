@@ -93,9 +93,6 @@ def rysuj_kolo_z_pikseli(obraz, m_s, n_s, r, x, y, szerokosc, wysokosc):
 
     return obraz1
 
-output_image_path_3 = "obraz3.png"
-output_image_path_4 = "obraz4.png"
-
 modified_image_3 = rysuj_kolo_z_pikseli(
     obraz=obraz,
     m_s=300,
@@ -107,20 +104,20 @@ modified_image_3 = rysuj_kolo_z_pikseli(
     wysokosc=100
 )
 
-modified_image_3.save(output_image_path_3)
+modified_image_3.save("obraz3.png")
 
 modified_image_4 = rysuj_kolo_z_pikseli(
     obraz=modified_image_3,
-    m_s=100,
+    m_s=000,
     n_s=150,
     r=50,
     x=200,
     y=200,
-    szerokosc=100,
-    wysokosc=100
+    szerokosc=15,
+    wysokosc=15
 )
 
-modified_image_4.save(output_image_path_4)
+modified_image_4.save("obraz4.png")
 
 # Zadanie 3
 def odbij_w_pionie(im):
