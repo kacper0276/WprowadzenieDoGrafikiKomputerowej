@@ -151,3 +151,37 @@ for i, ((nazwa, przefiltrowany), roznica) in enumerate(zip(przefiltrowane_obrazy
 plt.tight_layout()
 plt.savefig("fig3.png")
 plt.show()
+
+# Zad 5
+obraz = Image.open("baby_yoda.jpg").convert("L")
+
+filtry = [
+    ("FIND_EDGES", ImageFilter.FIND_EDGES, {}),
+    ("SMOOTH", ImageFilter.SMOOTH, {}),
+    ("MEDIANFILTER, size=5", ImageFilter.MedianFilter(size=5), {}),
+    ("MAXFILTER, size=7", ImageFilter.MaxFilter(size=7), {}),
+    ("RANKFILTER, size=7, rank=10", ImageFilter.RankFilter(size=7, rank=10), {}),
+]
+
+przefiltrowane_obrazy = []
+roznice = []
+
+for nazwa, filtr, parametry in filtry:
+    przefiltrowany = obraz.filter(filtr)
+    przefiltrowane_obrazy.append((nazwa, przefiltrowany))
+    roznice.append(ImageChops.difference(obraz, przefiltrowany))
+
+fig, axs = plt.subplots(len(filtry), 2, figsize=(10, len(filtry) * 5))
+
+for i, ((nazwa, przefiltrowany), roznica) in enumerate(zip(przefiltrowane_obrazy, roznice)):
+    axs[i, 0].imshow(przefiltrowany, cmap="gray")
+    axs[i, 0].set_title(nazwa)
+    axs[i, 0].axis("off")
+
+    axs[i, 1].imshow(roznica, cmap="gray")
+    axs[i, 1].set_title(f"Różnica z oryginałem")
+    axs[i, 1].axis("off")
+
+plt.tight_layout()
+plt.savefig("fig4.png")
+plt.show()
