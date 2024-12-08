@@ -86,3 +86,34 @@ axs[3].axis("off")
 plt.tight_layout()
 plt.savefig("fig1.png")
 plt.show()
+
+# Zad 3
+emboss_pil = obraz.filter(ImageFilter.EMBOSS)
+
+kernel_sobel1 = np.array([-1, 0, 1, -2, 0, 2, -1, 0, 1]).reshape((3, 3))
+kernel_sobel2 = np.array([-1, -2, -1, 0, 0, 0, 1, 2, 1]).reshape((3, 3))
+
+sobel1_img = filtruj(obraz, kernel_sobel1, scale=1)
+sobel2_img = filtruj(obraz, kernel_sobel2, scale=1)
+
+fig, axs = plt.subplots(1, 4, figsize=(20, 5))
+
+axs[0].imshow(obraz, cmap="gray")
+axs[0].set_title("Obraz w skali szarości (L)")
+axs[0].axis("off")
+
+axs[1].imshow(emboss_pil, cmap="gray")
+axs[1].set_title("Filtr EMBOSS")
+axs[1].axis("off")
+
+axs[2].imshow(sobel1_img, cmap="gray")
+axs[2].set_title("Filtr SOBEL1")
+axs[2].axis("off")
+
+axs[3].imshow(sobel2_img, cmap="gray")
+axs[3].set_title("Filtr SOBEL2")
+axs[3].axis("off")
+
+plt.tight_layout()
+plt.savefig("fig2.png")
+plt.show()
