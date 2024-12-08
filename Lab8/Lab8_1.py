@@ -29,3 +29,17 @@ def filtruj(obraz, kernel, scale):
             filtered_img[i, j] = np.clip(filtered_value, 0, 255)
 
     return Image.fromarray(filtered_img.astype("uint8"))
+
+
+obraz = Image.open("baby_yoda.jpg")
+kernel = [
+    [1, 1, 1],
+    [1, 1, 1],
+    [1, 1, 1]
+]
+
+scale = 9
+
+wynik = filtruj(obraz, kernel, scale)
+
+wynik.show()
