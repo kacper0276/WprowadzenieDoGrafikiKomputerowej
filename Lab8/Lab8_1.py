@@ -116,4 +116,38 @@ axs[3].axis("off")
 
 plt.tight_layout()
 plt.savefig("fig2.png")
+# plt.show()
+
+# Zad 4
+
+obraz = Image.open("baby_yoda.jpg").convert("L")
+
+filtry = [
+    ("Filtr 2", ImageFilter.GaussianBlur(2)),
+    ("Filtr 4", ImageFilter.GaussianBlur(4)),
+    ("Filtr 6", ImageFilter.GaussianBlur(6)),
+    ("Filtr 8", ImageFilter.GaussianBlur(8)),
+]
+
+przefiltrowane_obrazy = []
+roznice = []
+
+for nazwa, filtr in filtry:
+    przefiltrowany = obraz.filter(filtr)
+    przefiltrowane_obrazy.append((nazwa, przefiltrowany))
+    roznice.append(ImageChops.difference(obraz, przefiltrowany))
+
+fig, axs = plt.subplots(len(filtry), 2, figsize=(10, 20))
+
+for i, ((nazwa, przefiltrowany), roznica) in enumerate(zip(przefiltrowane_obrazy, roznice)):
+    axs[i, 0].imshow(przefiltrowany, cmap="gray")
+    axs[i, 0].set_title(nazwa)
+    axs[i, 0].axis("off")
+
+    axs[i, 1].imshow(roznica, cmap="gray")
+    axs[i, 1].set_title(f"Różnica z oryginałem")
+    axs[i, 1].axis("off")
+
+plt.tight_layout()
+plt.savefig("fig3.png")
 plt.show()
