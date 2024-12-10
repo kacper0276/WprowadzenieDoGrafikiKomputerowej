@@ -43,7 +43,7 @@ scale = 9
 
 wynik = filtruj(obraz, kernel, scale)
 
-# wynik.show()
+wynik.show()
 
 # Zad 2
 def statystyki_obrazu(obr):
