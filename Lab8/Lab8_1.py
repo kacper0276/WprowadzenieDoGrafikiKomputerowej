@@ -139,3 +139,28 @@ for i, (filt, name) in enumerate(zip(filters, filter_names)):
 plt.tight_layout()
 plt.savefig("fig3.png")
 
+# Zadanie 5
+filters_with_params = [
+    (ImageFilter.GaussianBlur(radius=2), "GaussianBlur (radius=2)"),
+    (ImageFilter.UnsharpMask(radius=2, percent=150, threshold=3), "UnsharpMask (r=2, p=150, t=3)"),
+    (ImageFilter.MedianFilter(size=3), "MedianFilter (size=3)"),
+    (ImageFilter.MinFilter(), "MinFilter"),
+    (ImageFilter.MaxFilter(), "MaxFilter"),
+]
+
+fig, axs = plt.subplots(len(filters_with_params), 2, figsize=(10, 20))
+
+for i, (filt, name) in enumerate(filters_with_params):
+    filtered_img = obraz.filter(filt)
+    diff_img = ImageChops.difference(obraz, filtered_img)
+
+    axs[i, 0].imshow(filtered_img, cmap="gray")
+    axs[i, 0].set_title(f"Filtr: {name}")
+    axs[i, 0].axis("off")
+
+    axs[i, 1].imshow(diff_img, cmap="gray")
+    axs[i, 1].set_title(f"Różnica: {name}")
+    axs[i, 1].axis("off")
+
+plt.tight_layout()
+plt.savefig("fig4.png")
