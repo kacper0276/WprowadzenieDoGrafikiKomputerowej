@@ -54,3 +54,13 @@ def konwertuj1(obraz, w_r, w_g, w_b):
     L = img_array[:, :, 0] * w_r + img_array[:, :, 1] * w_g + img_array[:, :, 2] * w_b
     L = np.round(L).astype(np.uint8)
     return Image.fromarray(L, mode='L')
+
+input_image = Image.open("mgla.jpg")
+
+w_r, w_g, w_b = 0.299, 0.587, 0.114
+
+converted_image = konwertuj1(input_image, w_r, w_g, w_b)
+converted_image.save("mgla_L1.png")
+
+converted_with_pillow = input_image.convert('L')
+converted_with_pillow.save("mgla_L.png")
