@@ -16,10 +16,20 @@ def histogram_norm(obrazi):
     return norm_hist
 
 def histogram_cumul(obraz):
-    return None
+    norm_hist = histogram_norm(obraz)
+    cumul_hist = np.zeros_like(norm_hist)
+    cumul_value = 0
+    for i in range(len(norm_hist)):
+        cumul_value += norm_hist[i]
+        cumul_hist[i] = cumul_value
+    return cumul_hist
 
 def histogram_equalization(obraz):
-    return None
+    cumul_hist = histogram_cumul(obraz)
+    lut = (cumul_hist * 255).astype(np.uint8)
+    equalized_image = lut[obraz]
+    return equalized_image
+
 
 # Zad 3
 imEx3 = ImageOps.equalize(obraz)
