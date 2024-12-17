@@ -59,6 +59,7 @@ plt.savefig("fig1.png")
 obraz = Image.open("zeby.png").convert("L")
 
 obraz_equalized = ImageOps.equalize(obraz)
+obraz_equalized.save('equalized.png')
 
 plt.figure(figsize=(10, 5))
 
@@ -93,37 +94,64 @@ plt.savefig("fig2.png")
 
 # Zad 4
 def konwertuj1(obraz, w_r, w_g, w_b):
-    assert 0 <= w_r <= 1 and 0 <= w_g <= 1 and 0 <= w_b <= 1, "Weights must be in the range [0, 1]"
-    assert round(w_r + w_g + w_b, 10) == 1, "Weights must sum to 1"
+    piksele = obraz.load()
+    szerokosc, wysokosc = obraz.size
 
-    img_array = np.array(obraz)
-    L = img_array[:, :, 0] * w_r + img_array[:, :, 1] * w_g + img_array[:, :, 2] * w_b
-    L = np.round(L).astype(np.uint8)
-    return Image.fromarray(L, mode='L')
+    nowy_obraz = Image.new("L", (szerokosc, wysokosc))
+    piksele_nowy = nowy_obraz.load()
 
-input_image = Image.open("mgla.jpg")
+    for x in range(szerokosc):
+        for y in range(wysokosc):
+            r, g, b = piksele[x, y]
+            l = round(r * w_r + g * w_g + b * w_b)
+            piksele_nowy[x, y] = l
 
-w_r, w_g, w_b = 0.299, 0.587, 0.114
-
-converted_image = konwertuj1(input_image, w_r, w_g, w_b)
-converted_image.save("mgla_L1.png")
-
-converted_with_pillow = input_image.convert('L')
-converted_with_pillow.save("mgla_L.png")
-
+    return nowy_obraz
 
 def konwertuj2(obraz, w_r, w_g, w_b):
-    if obraz.mode != 'RGB':
-        obraz = obraz.convert('RGB')
+    piksele = obraz.load()
+    szerokosc, wysokosc = obraz.size
 
-    assert 0 <= w_r <= 1 and 0 <= w_g <= 1 and 0 <= w_b <= 1, "Weights must be in the range [0, 1]"
-    assert round(w_r + w_g + w_b, 10) == 1, "Weights must sum to 1"
+    nowy_obraz = Image.new("L", (szerokosc, wysokosc))
+    piksele_nowy = nowy_obraz.load()
 
-    img_array = np.array(obraz)
+    for x in range(szerokosc):
+        for y in range(wysokosc):
+            r, g, b = piksele[x, y]
+            l = int(r * w_r + g * w_g + b * w_b)
+            piksele_nowy[x, y] = l
 
-    L = (img_array[:, :, 0] * w_r + img_array[:, :, 1] * w_g + img_array[:, :, 2] * w_b).astype(int)
+    return nowy_obraz
 
-    return Image.fromarray(L, mode='L')
+def statystyki(im):
+    s = stat.Stat(im)
+    print("extrema ", s.extrema)  # max i min
+    print("count ", s.count)  # zlicza
+    print("mean ", s.mean)  # srednia
+    print("median ", s.median)  # mediana
+    print("stddev ", s.stddev)  # odchylenie standardowe
 
-mglaL2 = konwertuj2(obraz, w_r, w_g, w_b)
-mglaL2.save("mgla_L2.png")
+w_r = 299 / 1000
+w_g = 587 / 1000
+w_b = 114 / 1000
+
+sciezka_wejsciowa = "mgla.jpg"
+obraz = Image.open(sciezka_wejsciowa).convert("RGB")
+
+obraz_L1 = konwertuj1(obraz, w_r, w_g, w_b)
+obraz_L1.save("mgla_L1.png")
+
+obraz_L = obraz.convert("L")
+obraz_L.save("mgla_L.png")
+
+obraz_L2 = konwertuj2(obraz, w_r, w_g, w_b)
+obraz_L2.save("mgla_L2.png")
+
+print('OBRAZ')
+statystyki(obraz)
+print('obraz_L')
+statystyki(obraz_L)
+print('obraz_L1')
+statystyki(obraz_L1)
+print('obraz_L2')
+statystyki(obraz_L2)
