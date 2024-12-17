@@ -113,11 +113,16 @@ converted_with_pillow.save("mgla_L.png")
 
 
 def konwertuj2(obraz, w_r, w_g, w_b):
+    if obraz.mode != 'RGB':
+        obraz = obraz.convert('RGB')
+
     assert 0 <= w_r <= 1 and 0 <= w_g <= 1 and 0 <= w_b <= 1, "Weights must be in the range [0, 1]"
     assert round(w_r + w_g + w_b, 10) == 1, "Weights must sum to 1"
 
     img_array = np.array(obraz)
+
     L = (img_array[:, :, 0] * w_r + img_array[:, :, 1] * w_g + img_array[:, :, 2] * w_b).astype(int)
+
     return Image.fromarray(L, mode='L')
 
 mglaL2 = konwertuj2(obraz, w_r, w_g, w_b)
