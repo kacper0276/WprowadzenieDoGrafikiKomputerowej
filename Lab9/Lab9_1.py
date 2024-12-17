@@ -82,12 +82,14 @@ imEx3.save("equalized1.png")
 
 plt.figure(figsize=(10, 5))
 plt.subplot(1, 2, 1)
-plt.imshow(obraz)
+plt.imshow(obraz_equalized)
 plt.title('')
 
 plt.subplot(1, 2, 2)
 plt.imshow(imEx3)
 plt.title('Obraz z kwadratami (min)')
+
+plt.savefig("fig2.png")
 
 # Zad 4
 def konwertuj1(obraz, w_r, w_g, w_b):
