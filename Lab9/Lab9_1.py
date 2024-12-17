@@ -54,6 +54,25 @@ plt.title("Histogram Wyrównany")
 
 plt.tight_layout()
 plt.savefig("fig1.png")
+# plt.show()
+
+obraz = Image.open("zeby.png").convert("L")
+
+obraz_equalized = ImageOps.equalize(obraz)
+
+plt.figure(figsize=(10, 5))
+
+plt.subplot(1, 2, 1)
+plt.imshow(obraz, cmap='gray')
+plt.title("Oryginalny Obraz")
+plt.axis("off")
+
+plt.subplot(1, 2, 2)
+plt.imshow(obraz_equalized, cmap='gray')
+plt.title("Obraz po wyrównaniu histogramu")
+plt.axis("off")
+
+plt.tight_layout()
 plt.show()
 
 # Zad 3
