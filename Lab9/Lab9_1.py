@@ -8,12 +8,11 @@ import matplotlib.pyplot as plt
 obraz = Image.open("zeby.png").convert("L")
 
 # Zad 2
-def histogram_norm(obrazi):
-    hist = np.zeros(256, dtype=np.float32)
-    for value in obrazi.flat:
-        hist[value] += 1
-    norm_hist = hist / hist.sum()
-    return norm_hist
+def histogram_norm(obraz):
+    obraz_array = np.asarray(obraz)
+    histogram = np.histogram(obraz_array, bins=256, range=(0, 256))[0]
+    histogram_normalized = histogram / np.sum(histogram)
+    return histogram_normalized
 
 def histogram_cumul(obraz):
     norm_hist = histogram_norm(obraz)
@@ -25,11 +24,37 @@ def histogram_cumul(obraz):
     return cumul_hist
 
 def histogram_equalization(obraz):
+    obraz_array = np.asarray(obraz)
     cumul_hist = histogram_cumul(obraz)
     lut = (cumul_hist * 255).astype(np.uint8)
-    equalized_image = lut[obraz]
+    equalized_image = Image.fromarray(lut[obraz_array])
     return equalized_image
 
+im21 = histogram_norm(obraz)
+im22 = histogram_cumul(obraz)
+im23 = histogram_equalization(obraz)
+
+plt.figure(figsize=(12, 8))
+
+plt.subplot(2, 2, 1)
+plt.hist(np.asarray(obraz).ravel(), bins=256, range=(0, 256), color='blue', alpha=0.7)
+plt.title("Histogram Oryginalny")
+
+plt.subplot(2, 2, 2)
+plt.plot(im21, color='green')
+plt.title("Histogram Znormalizowany")
+
+plt.subplot(2, 2, 3)
+plt.plot(im22, color='orange')
+plt.title("Histogram Skumulowany")
+
+plt.subplot(2, 2, 4)
+plt.hist(np.asarray(im23).ravel(), bins=256, range=(0, 256), color='red', alpha=0.7)
+plt.title("Histogram Wyrównany")
+
+plt.tight_layout()
+plt.savefig("fig1.png")
+plt.show()
 
 # Zad 3
 imEx3 = ImageOps.equalize(obraz)
