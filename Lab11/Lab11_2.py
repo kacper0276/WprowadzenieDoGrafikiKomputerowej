@@ -62,3 +62,24 @@ plt.ylabel("Liczba pikseli")
 plt.grid(axis='y', linestyle='--', alpha=0.6)
 plt.show()
 plt.savefig('histogram.jpg')
+
+# Zad 2
+image4 = image2.convert('RGB')
+
+image4.save('obraz4.png')
+
+difference = ImageChops.difference(image1, image4)
+
+bbox = difference.getbbox()
+if bbox is None:
+    print("Obraz1 i Obraz4 są identyczne!")
+else:
+    print("Obraz1 i Obraz4 różnią się!")
+
+    diff_array = np.array(difference)
+    total_diff = np.sum(diff_array)
+    different_pixels = np.count_nonzero(diff_array)
+    print(f"Całkowita różnica pikseli: {total_diff}")
+    print(f"Liczba różniących się pikseli: {different_pixels}")
+
+    difference.save('difference_image1_image4.png')
